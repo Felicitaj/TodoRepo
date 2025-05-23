@@ -106,3 +106,22 @@ COHERE_API_KEY=your_cohere_api_key
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 
 
+## Dependencies
+
+### Backend
+
+- Node.js (v14 or higher)
+- Express
+- Supabase client library (`@supabase/supabase-js`)
+- Cohere SDK (`cohere-ai`)
+- dotenv
+
+### Frontend
+
+- React
+- Tailwind CSS
+- Axios (or fetch, if you use it)
+
+
+
+
