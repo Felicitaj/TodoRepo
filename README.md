@@ -1,71 +1,108 @@
-# Getting Started with Create React App
+# TodoRepo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack Todo application that allows users to manage personal tasks and generate intelligent summaries of pending todos using **Cohere AI**, with summaries posted to a Slack channel. Built with **React**, **Node.js/Express**, and **Supabase**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+-  Add, edit, and delete to-do items
+-  View current list of to-dos
+-  Summarize todos using Cohere AI
+-  Send summaries to a Slack channel via Webhook
+-  RESTful API built with Node.js and Express
+-  Supabase PostgreSQL for data storage
+-  Responsive UI built with React and Tailwind CSS
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##  Tech Stack
 
-### `npm test`
+| Layer       | Technology         |
+|-------------|---------------------|
+| Frontend    | React, Tailwind CSS |
+| Backend     | Node.js, Express    |
+| Database    | Supabase (PostgreSQL) |
+| AI Model    | Cohere LLM          |
+| Messaging   | Slack Webhooks      |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+##  Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js and npm installed
+- Supabase account (free tier)
+- Cohere AI account and API key
+- Slack workspace with webhook permissions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🔧 Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Clone the repository
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone https://github.com/Felicitaj/TodoRepo.git
+cd TodoRepo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 2. Supabase Setup
+2.1 Create a new project at Supabase.io
+2.2 Enable Row-Level Security (RLS)
+2.3 Add a simple access policy
+2.4 Get your SUPABASE_URL and SUPABASE_ANON_KEY from the dashboard
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---Allow delete for all
+alter policy "Allow delete for all"
+on "public"."todoDb"
+to public
+using (
+true
+);
 
-## Learn More
+---Allow update all
+alter policy "Allow update all"
+on "public"."todoDb"
+to public
+using (
+true
+with check (
+true
+);
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---insert
+alter policy "insert"
+on "public"."todoDb"
+to public
+with check (
+true
+);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---read
+alter policy "read"
+on "public"."todoDb"
+to public
+using (
+true
+);
 
-### Code Splitting
+### 3. Cohere API Setup
+3.1 Sign up at https://cohere.com
+3.2 Go to your Cohere dashboard and generate an API key
+3.3 Save the key for the backend .env
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 4. Slack Webhook Setup
+4.1 Open your Slack workspace
+4.2 Go to Apps → Search for Incoming Webhooks
+4.3 Click Add Configuration, choose a channel, and copy the generated webhook URL
+4.4 Use it in your backend .env
 
-### Analyzing the Bundle Size
+### 5. Environment Variables
+5.1 Create backend/.env file
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+COHERE_API_KEY=your_cohere_api_key
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
